@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Inicio de Sesión</title>
+  <style>
+    /* Fondo degradado */
+    body {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: linear-gradient(135deg, #9b59b6, #8e44ad); /* Fondo degradado morado/lila */
+      color: white;
+    }
+
+    /* Contenedor del formulario */
+    .login-container {
+      background: rgba(255, 255, 255, 0.9); /* Fondo blanco semitransparente */
+      padding: 30px;
+      border-radius: 10px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2); /* Sombra */
+      width: 350px;
+      text-align: center;
+    }
+
+    /* Título */
+    .login-container h2 {
+      margin-bottom: 20px;
+      color: #8e44ad; /* Morado principal */
+      font-weight: bold;
+    }
+
+    /* Campos de entrada */
+    .login-container input {
+      width: 100%;
+      padding: 10px;
+      margin: 10px 0;
+      border: 1px solid #ddd;
+      border-radius: 5px;
+      font-size: 16px;
+    }
+
+    /* Botón */
+    .login-container button {
+      background-color: #8e44ad; /* Morado principal */
+      color: white;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 5px;
+      font-size: 16px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+
+    .login-container button:hover {
+      background-color: #6c3483; /* Morado más oscuro al pasar el mouse */
+    }
+
+    /* Mensaje de error */
+    .error {
+      color: red;
+      font-size: 14px;
+      display: none;
+    }
+  </style>
+</head>
+<body class="sub_page hero_area">
+  <div class="login-container">
+    <h2>Inicio de Sesión</h2>
+    <input type="text" id="username" placeholder="Usuario" required>
+    <input type="password" id="password" placeholder="Contraseña" required>
+    <p class="error" id="errorMessage">Credenciales incorrectas</p>
+    <button id="loginButton">Iniciar Sesión</button>
+  </div>
+
+  <script>
+    // Elementos del DOM
+    const loginButton = document.getElementById("loginButton");
+    const errorMessage = document.getElementById("errorMessage");
+
+    // Validar credenciales al hacer clic en "Iniciar Sesión"
+    loginButton.addEventListener("click", () => {
+      const username = document.getElementById("username").value;
+      const password = document.getElementById("password").value;
+
+      if (username === "inicio" && password === "123456") {
+        // Redirigir a contact.html si las credenciales son correctas
+        window.location.href = "contact.html";
+      } else {
+        // Mostrar mensaje de error si las credenciales son incorrectas
+        errorMessage.style.display = "block";
+      }
+    });
+  </script>
+</body>
+</html>

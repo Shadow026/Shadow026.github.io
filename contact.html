@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
+  <title>Placeholder</title>
+  <link rel="stylesheet" type="text/css" href="css/bootstrap.css"/>
+  <link href="css/style.css" rel="stylesheet"/>
+  <link href="css/responsive.css" rel="stylesheet"/>
+  <style>
+    /* Estilo general */
+    body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  background: linear-gradient(135deg, #007bff, #6c757d); /* Fondo degradado */
+  color: white; /* Texto blanco para contraste */
+}
+
+    .container {
+      margin-top: 20px;
+    }
+
+    h2, h3 {
+  color: white; /* Cambiar el color del texto a blanco */
+  font-weight: bold; /* Hacer el texto más grueso */
+  text-align: center; /* Centrar el texto (opcional) */
+}
+
+    /* Estilo del formulario */
+    form {
+  background-color: rgba(255, 255, 255, 0.9); /* Fondo blanco semitransparente */
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Sombra */
+  color: #333; /* Texto oscuro */
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+    form label {
+      font-weight: bold;
+      color: #555;
+      display: block;
+      margin-top: 10px;
+    }
+
+    form input, form textarea, form button {
+      width: 100%;
+      padding: 10px;
+      margin-top: 5px;
+      margin-bottom: 15px;
+      border: 1px solid #ddd;
+      border-radius: 5px;
+      font-size: 14px;
+    }
+
+    form button {
+      background-color: #b700ff;
+      color: white;
+      border: none;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+
+    form button:hover {
+      background-color: #0056b3;
+    }
+
+    /* Estilo de la tabla */
+    table {
+  background-color: rgba(255, 255, 255, 0.9); /* Fondo blanco semitransparente */
+  border-collapse: collapse;
+  width: 100%;
+  margin-top: 20px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Sombra */
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+table th, table td {
+  color: black; /* Cambiar el color del texto a negro */
+  padding: 10px;
+  text-align: left;
+  border-bottom: 1px solid #ddd;
+}
+
+table tr:nth-child(even) {
+  background-color: #f2f2f2;
+}
+
+table tr:hover {
+  background-color: #e9ecef;
+}
+    
+  </style>
+</head>
+<body class="sub_page hero_area">
+  <div class="container">
+    <div class="row">
+      <!-- Formulario -->
+      <div class="col-md-8">
+        <h2>Ingrese Las Indicaciones</h2>
+        <form id="contactForm">
+          <label for="house">Casa:</label>
+          <input type="text" id="house" name="house" placeholder="Nombre de la casa" required><br>
+        
+          <label for="address">Dirección:</label>
+          <input type="text" id="address" name="address" placeholder="Dirección" required><br>
+        
+          <label for="message">Mensaje:</label>
+          <textarea id="message" name="message" placeholder="Escribe tu mensaje" required></textarea><br>
+        
+          <label for="employees">Empleados (separados por comas):</label>
+          <input type="text" id="employees" name="employees" placeholder="Empleado1,Empleado2,Empleado3"><br>
+        
+          <!-- Campo de Fecha -->
+          <label for="date">Fecha:</label>
+          <input type="date" id="date" name="date" required><br>
+        
+          <!-- Campo de Hora -->
+          <label for="time">Hora:</label>
+          <input type="time" id="time" name="time" required><br>
+        
+          <button type="submit">Enviar</button>
+        </form>
+        <!-- Botón para regresar a service.html -->
+        <button onclick="window.location.href='service.html'" style="margin-top: 20px; background-color: #6c757d; color: white; border: none; padding: 10px 20px; border-radius: 5px; cursor: pointer;">
+          Regresar a Service
+        </button>
+        
+      </div>
+
+      <!-- Tabla para mostrar la información -->
+      <div class="col-md-4">
+        <h3>Información Guardada</h3>
+        <table id="infoTable" border="1" style="width: 100%; border-collapse: collapse;">
+          <thead>
+            <tr>
+              <th>Casa</th>
+              <th>Dirección</th>
+              <th>Mensaje</th>
+              <th>Empleados</th>
+              <th>Fecha</th>
+              <th>Hora</th>
+              <th>Acciones</th>
+            </tr>
+          </thead>
+          <tbody>
+            <!-- Las filas se agregarán dinámicamente aquí -->
+          </tbody>
+        </table>
+      </div>
+      
+  <script>
+    document.getElementById("contactForm").addEventListener("submit", function(event) {
+      event.preventDefault(); // Evita que la página se recargue
+    
+      const formData = {
+        house: document.getElementById("house").value,
+        address: document.getElementById("address").value,
+        message: document.getElementById("message").value,
+        employees: document.getElementById("employees").value.split(","), // Convertir en array
+        date: document.getElementById("date").value,
+        time: document.getElementById("time").value
+      };
+    
+      // Obtener datos anteriores o crear un nuevo array
+      let serviceFormDataList = JSON.parse(localStorage.getItem("serviceFormDataList")) || [];
+      
+      // Guardar la nueva información
+      serviceFormDataList.unshift(formData);
+      localStorage.setItem("serviceFormDataList", JSON.stringify(serviceFormDataList));
+    
+      alert("Información guardada correctamente.");
+      location.reload(); // Recargar la página para mostrar los datos actualizados
+    });
+    </script>
+
+<script>
+  function deleteRow(index) {
+    let existingData = JSON.parse(localStorage.getItem("serviceFormDataList")) || [];
+
+    if (index >= 0 && index < existingData.length) {
+      existingData.splice(index, 1); // Elimina el elemento del Local Storage
+      localStorage.setItem("serviceFormDataList", JSON.stringify(existingData)); // Guarda el nuevo array
+
+      renderSavedData(); // Vuelve a renderizar la tabla
+    } else {
+      console.error("Índice inválido:", index);
+    }
+  }
+
+  function renderSavedData() {
+    const infoTableBody = document.querySelector("#infoTable tbody");
+    const existingData = JSON.parse(localStorage.getItem("serviceFormDataList")) || [];
+    infoTableBody.innerHTML = ""; // Limpia la tabla
+    existingData.forEach((data, index) => {
+      const row = document.createElement("tr");
+      row.innerHTML = `
+        <td>${data.house}</td>
+        <td>${data.address}</td>
+        <td>${data.message}</td>
+        <td>${data.employees.join(", ")}</td>
+        <td>${data.date}</td>
+        <td>${data.time}</td>
+        <td>
+          <button class="delete-btn" style="background-color: #dc3545; color: white; border: none; padding: 5px 10px; border-radius: 5px; cursor: pointer;" onclick="deleteRow(${index})">Eliminar</button>
+        </td>
+      `;
+      infoTableBody.appendChild(row);
+    });
+  }
+
+  document.addEventListener("DOMContentLoaded", () => {
+    const form = document.getElementById("contactForm");
+
+    form.addEventListener("submit", (event) => {
+      event.preventDefault();
+
+      const formData = {
+        house: document.getElementById("house").value,
+        address: document.getElementById("address").value,
+        message: document.getElementById("message").value,
+        employees: document.getElementById("employees").value.split(","),
+        date: document.getElementById("date").value,
+        time: document.getElementById("time").value
+      };
+
+      let serviceFormDataList = JSON.parse(localStorage.getItem("serviceFormDataList")) || [];
+
+      const exists = serviceFormDataList.some(item => 
+        item.house === formData.house &&
+        item.address === formData.address &&
+        item.message === formData.message &&
+        item.date === formData.date &&
+        item.time === formData.time
+      );
+
+      if (!exists) {
+        serviceFormDataList.unshift(formData);
+        localStorage.setItem("serviceFormDataList", JSON.stringify(serviceFormDataList));
+        renderSavedData();
+        form.reset();
+        alert("Información guardada correctamente.");
+      } else {
+        alert("Esta información ya está guardada.");
+      }
+    });
+
+    renderSavedData(); // Mostrar datos al cargar
+  });
+</script>
+</body>
+</html>
